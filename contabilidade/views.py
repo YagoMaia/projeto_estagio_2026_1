@@ -28,7 +28,7 @@ def landing_page(request: HttpRequest):
 
 		Message.objects.create(name=name, email=email, message=content, phone=phone)
 
-		messages.success(request, "Message sent successfully!")
+		messages.success(request, "Mensagem enviada com sucesso !!!")
 		return redirect("landing_page")
 
 	return render(request, "landpage.html", context=DATA)

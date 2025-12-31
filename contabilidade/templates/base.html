@@ -1,16 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head> </head>
-</html>
-
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lumina Contabilidade</title>
+    <title>{% block title %}Lumina Contabilidade{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -25,11 +19,27 @@
     </style>
   </head>
   <body class="min-h-screen font-sans antialiased text-slate-900">
-    {% include 'partials/header.html' %}
+    {% include 'partials/header.html' %} 
+    {% comment %} {% if messages %}
+    <div class="fixed top-4 right-4 z-50 space-y-2">
+      {% for message in messages %}
+      <div
+        class="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-2 animate-bounce"
+      >
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <span>{{ message }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <script>
+      setTimeout(() => {
+        const msgs = document.querySelectorAll(".fixed.top-4");
+        msgs.forEach((m) => (m.style.display = "none"));
+      }, 3000);
+    </script>
+    {% endif %} {% endcomment %}
 
     <main class="min-h-screen">{% block content %} {% endblock %}</main>
-
-    {% include 'partials/footer.html' %}
   </body>
   <script>
     lucide.createIcons();

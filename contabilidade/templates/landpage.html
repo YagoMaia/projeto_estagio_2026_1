@@ -237,8 +237,8 @@
             </div>
             <div>
               <p class="font-bold text-slate-900 mb-1">Endereço</p>
-              <p class="text-slate-600">Av. Paulista, 1000 - São Paulo, SP</p>
-              <p class="text-slate-600">01310-100, Brasil</p>
+              <p class="text-slate-600">Rua Cláudio Rodrigues Meira, 65, Montes Claros, MG</p>
+              <p class="text-slate-600">39402-330, Brasil</p>
             </div>
           </div>
           <div class="flex items-start gap-4">
@@ -249,7 +249,7 @@
             </div>
             <div>
               <p class="font-bold text-slate-900 mb-1">Telefone</p>
-              <p class="text-slate-600">(11) 3456-7890</p>
+              <p class="text-slate-600">(38) 3221-0070</p>
               <p class="text-slate-600">Seg-Sex, 09h às 18h</p>
             </div>
           </div>
@@ -317,36 +317,5 @@
     </div>
   </div>
 </section>
-{% endblock %} {% comment %}
-<script>
-  lucide.createIcons();
-
-  const header = document.getElementById("main-header");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 10) {
-      header.classList.add("glass-effect", "shadow-lg");
-      header.classList.remove("bg-slate-900");
-    } else {
-      header.classList.remove("glass-effect", "shadow-lg");
-      header.classList.add("bg-slate-900");
-    }
-  });
-
-  const mobileBtn = document.getElementById("mobile-menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIcon = mobileBtn.querySelector('[data-lucide="menu"]');
-  let isMenuOpen = false;
-
-  mobileBtn.addEventListener("click", () => {
-    isMenuOpen = !isMenuOpen;
-    if (isMenuOpen) {
-      mobileMenu.classList.remove("hidden");
-      menuIcon.setAttribute("data-lucide", "x");
-    } else {
-      mobileMenu.classList.add("hidden");
-      menuIcon.setAttribute("data-lucide", "menu");
-    }
-    lucide.createIcons();
-  });
-</script>
-{% endcomment %}
+{% include 'partials/footer.html' %}
+{% endblock %} 

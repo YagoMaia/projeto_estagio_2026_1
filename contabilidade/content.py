@@ -1,8 +1,8 @@
 DATA = {
 	"nav_links": [
 		{"label": "Serviços", "href": "#services"},
-		{"label": "Preços", "href": "#pricing"},
 		{"label": "Depoimentos", "href": "#testimonials"},
+		{"label": "Preços", "href": "#pricing"},
 		{"label": "Contato", "href": "#contact"},
 	],
 	"services": [
