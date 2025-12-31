@@ -19,10 +19,16 @@ Including another URLconf
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import include, path
 
+from contabilidade.forms import CustomLoginForm
+
 urlpatterns = [
-	# path("admin/", admin.site.urls),
 	path("", include("contabilidade.urls"), name="landing_page"),
-	path("login/", LoginView.as_view(template_name="login.html"), name="login"),
+	path(
+		"login/",
+		LoginView.as_view(
+			template_name="login.html", authentication_form=CustomLoginForm
+		),
+		name="login",
+	),
 	path("logout/", LogoutView.as_view(next_page="landing_page"), name="logout"),
-	# path("painel/", views.painel_mensagens, name="painel"),
 ]

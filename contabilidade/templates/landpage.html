@@ -271,41 +271,7 @@
       <div class="p-8 rounded-xl shadow-lg bg-white border border-slate-100">
         <form method="POST" action="" class="space-y-6">
           {% csrf_token %}
-          <div>
-            <input
-              type="text"
-              name="name"
-              placeholder="Seu Nome *"
-              required
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Endereço de E-mail *"
-              required
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
-            />
-          </div>
-          <div>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Número de Telefone"
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
-            />
-          </div>
-          <div>
-            <textarea
-              name="message"
-              rows="4"
-              placeholder="Conte-nos sobre suas necessidades *"
-              required
-              class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent resize-none outline-none transition-all"
-            ></textarea>
-          </div>
+          {{ form }}
           <button
             type="submit"
             class="w-full rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white py-6 text-lg font-bold transition-colors"

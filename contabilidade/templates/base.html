@@ -19,27 +19,54 @@
     </style>
   </head>
   <body class="min-h-screen font-sans antialiased text-slate-900">
-    {% include 'partials/header.html' %} 
-    {% comment %} {% if messages %}
-    <div class="fixed top-4 right-4 z-50 space-y-2">
+    {% include 'partials/header.html' %} {% if messages %}
+    <div
+      id="toast-container"
+      class="fixed top-20 right-4 z-[60] space-y-2 pointer-events-none"
+    >
       {% for message in messages %}
       <div
-        class="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-2 animate-bounce"
+        class="pointer-events-auto px-6 py-4 rounded-lg shadow-xl flex items-center gap-3 animate-bounce border text-white {% if 'error' in message.tags %} bg-red-500 border-red-400 {% else %} bg-green-500 border-green-400 {% endif %}"
       >
-        <i data-lucide="check-circle" class="w-5 h-5"></i>
-        <span>{{ message }}</span>
+        {% if 'error' in message.tags %}
+        <i data-lucide="alert-circle" class="w-6 h-6"></i>
+        {% elif 'warning' in message.tags %}
+        <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+        {% else %}
+        <i data-lucide="check-circle" class="w-6 h-6"></i>
+        {% endif %}
+
+        <div class="flex flex-col">
+          <span class="font-bold text-sm uppercase opacity-90">
+            {% if 'error' in message.tags %} Erro {% else %}Sucesso{% endif %}
+          </span>
+          <span class="font-medium text-sm">{{ message }}</span>
+        </div>
       </div>
       {% endfor %}
     </div>
     <script>
       setTimeout(() => {
-        const msgs = document.querySelectorAll(".fixed.top-4");
-        msgs.forEach((m) => (m.style.display = "none"));
-      }, 3000);
+        const container = document.getElementById("toast-container");
+        if (container) {
+          const messages = container.children;
+
+          Array.from(messages).forEach((msg) => {
+            msg.style.transition = "all 0.5s ease";
+            msg.style.opacity = "0";
+            msg.style.transform = "translateX(100%)";
+          });
+
+          setTimeout(() => {
+            container.remove();
+          }, 500);
+        }
+      }, 4000);
     </script>
-    {% endif %} {% endcomment %}
+    {% endif %}
 
     <main class="min-h-screen">{% block content %} {% endblock %}</main>
+
   </body>
   <script>
     lucide.createIcons();

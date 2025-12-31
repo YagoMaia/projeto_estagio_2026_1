@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from django.shortcuts import redirect, render
 
 from .content import DATA
+from .forms import MessageForm
 from .models import Message
 
 
@@ -13,7 +14,7 @@ def panel_messages(request: HttpRequest):
 	Function that responsible for render a panel messages page.
 	"""
 	messages = Message.objects.all().order_by("-created_at")
-	return render(request, "panel.html", {"messages": messages})
+	return render(request, "panel.html", {"contact_messages": messages})
 
 
 def landing_page(request: HttpRequest):
@@ -21,14 +22,18 @@ def landing_page(request: HttpRequest):
 	Function that responsible for render a landing page and received message from form.
 	"""
 	if request.method == "POST":
-		name = request.POST.get("name")
-		email = request.POST.get("email")
-		content = request.POST.get("message")
-		phone = request.POST.get("phone")
+		form = MessageForm(request.POST)
 
-		Message.objects.create(name=name, email=email, message=content, phone=phone)
+		if form.is_valid():
+			form.save()
+			messages.success(request, "Mensagem enviada com sucesso !!!")
+			return redirect("landing_page")
+		else:
+			messages.error(request, "Erro ao enviar. Verifique os campos abaixo.")
+	else:
+		form = MessageForm()
 
-		messages.success(request, "Mensagem enviada com sucesso !!!")
-		return redirect("landing_page")
+	context = DATA.copy()
+	context["form"] = form
 
-	return render(request, "landpage.html", context=DATA)
+	return render(request, "landpage.html", context)
