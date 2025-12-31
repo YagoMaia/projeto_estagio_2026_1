@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head> </head>
+</html>
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumina Contabilidade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      .glass-effect {
+        background-color: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(4px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans antialiased text-slate-900">
+    {% include 'partials/header.html' %}
+
+    <main class="min-h-screen">{% block content %} {% endblock %}</main>
+
+    {% include 'partials/footer.html' %}
+  </body>
+  <script>
+    lucide.createIcons();
+
+    const header = document.getElementById("main-header");
+    window.addEventListener("scroll", () => {
+      if (header) {
+        if (window.scrollY > 10) {
+          header.classList.add("glass-effect", "shadow-lg");
+          header.classList.remove("bg-slate-900");
+        } else {
+          header.classList.remove("glass-effect", "shadow-lg");
+          header.classList.add("bg-slate-900");
+        }
+      }
+    });
+
+    const mobileBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (mobileBtn && mobileMenu) {
+      const menuIcon = mobileBtn.querySelector('[data-lucide="menu"]');
+      let isMenuOpen = false;
+
+      mobileBtn.addEventListener("click", () => {
+        isMenuOpen = !isMenuOpen;
+        if (isMenuOpen) {
+          mobileMenu.classList.remove("hidden");
+          if (menuIcon) menuIcon.setAttribute("data-lucide", "x");
+        } else {
+          mobileMenu.classList.add("hidden");
+          if (menuIcon) menuIcon.setAttribute("data-lucide", "menu");
+        }
+        lucide.createIcons();
+      });
+    }
+  </script>
+</html>

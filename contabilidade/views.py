@@ -1,9 +1,19 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
 
 from .content import DATA
 from .models import Message
+
+
+@login_required(login_url="login")
+def panel_messages(request: HttpRequest):
+	"""
+	Function that responsible for render a panel messages page.
+	"""
+	messages = Message.objects.all().order_by("-created_at")
+	return render(request, "panel.html", {"messages": messages})
 
 
 def landing_page(request: HttpRequest):
@@ -21,4 +31,4 @@ def landing_page(request: HttpRequest):
 		messages.success(request, "Message sent successfully!")
 		return redirect("landing_page")
 
-	return render(request, "contabilidade/landpage.html", context=DATA)
+	return render(request, "landpage.html", context=DATA)

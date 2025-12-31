@@ -9,7 +9,7 @@ dependencies = [
 ]
 
 [tool.ruff]
-line-length = 150
+line-length = 85
 exclude = [
     "migrations",
     "alembic",
@@ -18,9 +18,6 @@ exclude = [
     "build",
     "dist"
 ]
-
-[tool.ruff.lint.pycodestyle]
-max-line-length = 150
 
 [tool.ruff.lint]
 select = [

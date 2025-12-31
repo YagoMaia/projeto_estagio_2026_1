@@ -1,0 +1,104 @@
+<header
+  id="main-header"
+  class="glass-effect sticky top-0 z-50 transition-all duration-300 bg-slate-900"
+>
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <a href="{% url 'landing_page' %}" class="flex items-center gap-2">
+        <div
+          class="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-center"
+        >
+          <span class="text-white font-bold text-lg">L</span>
+        </div>
+        <span class="text-white font-bold text-xl">Lumina Contabilidade</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8">
+        {% for link in nav_links %}
+        <a
+          href="{{ link.href }}"
+          class="text-white/80 hover:text-white transition-colors"
+        >
+          {{ link.label }}
+        </a>
+        {% endfor %}
+      </nav>
+
+      <div class="flex items-center gap-4">
+        {% if user.is_authenticated %}
+        <div class="hidden md:flex items-center gap-4">
+          <a
+            href="{% url 'panel' %}"
+            class="text-indigo-400 hover:text-indigo-300 font-medium text-sm"
+          >
+            Olá, {{ user.username }}
+          </a>
+
+          <a
+            href="{% url 'panel' %}"
+            class="inline-flex items-center justify-center rounded-full border border-white/20 hover:bg-white/10 text-white px-4 py-2 text-sm font-medium transition-colors"
+          >
+            Painel
+          </a>
+
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="text-red-400 hover:text-red-300 transition-colors"
+              title="Sair"
+            >
+              <i data-lucide="log-out" class="w-5 h-5"></i>
+            </button>
+          </form>
+        </div>
+        {% else %}
+        <a
+          href="{% url 'login' %}"
+          class="hidden md:inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white px-4 py-2 font-medium transition-colors"
+        >
+          Área do Cliente
+        </a>
+        {% endif %}
+
+        <button id="mobile-menu-btn" class="md:hidden text-white">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <nav
+      id="mobile-menu"
+      class="hidden md:hidden mt-4 pb-4 flex flex-col gap-4 border-t border-white/10 pt-4"
+    >
+      {% for link in nav_links %}
+      <a
+        href="{{ link.href }}"
+        class="text-white/80 hover:text-white transition-colors block"
+      >
+        {{ link.label }}
+      </a>
+      {% endfor %} {% if user.is_authenticated %}
+      <a href="{% url 'panel' %}" class="block text-indigo-400 font-medium">
+        Ir para o Painel
+      </a>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button
+          type="submit"
+          class="text-red-400 hover:text-red-300 w-full text-left"
+        >
+          Sair do Sistema
+        </button>
+      </form>
+      {% else %}
+      <a
+        href="{% url 'login' %}"
+        class="text-center rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white w-full py-2 font-medium block"
+      >
+        Área do Cliente
+      </a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
