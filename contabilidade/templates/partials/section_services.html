@@ -1,0 +1,24 @@
+<section id="services" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4"
+      >
+        Além dos
+        <span
+          class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent"
+          >Números</span
+        >
+      </h2>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+        Soluções contábeis abrangentes projetadas para empresas modernas
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+    {% for service in services %} 
+          {% include "partials/service_card.html" with service=service %} 
+    {% endfor %}
+    </div>
+  </div>
+</section>

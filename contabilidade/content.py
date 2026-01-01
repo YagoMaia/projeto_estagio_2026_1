@@ -47,15 +47,21 @@ DATA = {
 	"plans": [
 		{
 			"name": "Inicial",
-			"price": "R$ 499",
+			"price": "R$ 249",
 			"period": "/mês",
 			"description": "Perfeito para pequenas empresas e startups",
-			"features": ["Demonstrativos mensais", "Conformidade fiscal", "Escrituração básica", "Suporte por e-mail", "Revisões trimestrais"],
+			"features": [
+				"Demonstrativos mensais",
+				"Conformidade fiscal",
+				"Escrituração básica",
+				"Suporte por e-mail",
+				"Revisões trimestrais",
+			],
 			"popular": False,
 		},
 		{
 			"name": "Crescimento",
-			"price": "R$ 999",
+			"price": "R$ 499",
 			"period": "/mês",
 			"description": "Para empresas em expansão que precisam de mais",
 			"features": [
@@ -84,5 +90,10 @@ DATA = {
 			"popular": False,
 		},
 	],
-	"partners": [{"name": "TechFlow"}, {"name": "Innovate"}, {"name": "FutureScale"}, {"name": "GlobalBiz"}],
+	"partners": [
+		{"name": "TechFlow"},
+		{"name": "Innovate"},
+		{"name": "FutureScale"},
+		{"name": "GlobalBiz"},
+	],
 }

@@ -1,0 +1,20 @@
+<section class="py-16 bg-slate-50">
+  <div class="container mx-auto px-4">
+    <p class="text-center text-slate-600 mb-8 text-sm uppercase tracking-wide">
+      A escolha de empresas inovadoras
+    </p>
+    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+      {% for partner in partners %}
+      <div
+        class="grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100"
+      >
+        <div
+          class="h-10 px-4 bg-slate-200 flex items-center rounded text-slate-500 font-bold"
+        >
+          {{ partner.name }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

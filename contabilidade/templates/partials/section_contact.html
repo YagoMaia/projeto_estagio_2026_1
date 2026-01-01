@@ -1,0 +1,82 @@
+<section id="contact" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2
+        class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4"
+      >
+        Vamos Conversar
+      </h2>
+      <p class="text-lg text-slate-600">
+        Pronto para transformar as finanças do seu negócio? Entre em contato
+        conosco hoje.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-2xl font-bold text-slate-900 mb-6">
+            Informações de Contato
+          </h3>
+          <p class="text-slate-600 leading-relaxed mb-8">
+            Estamos aqui para ajudar você a navegar em sua jornada financeira.
+            Entre em contato para discutir como podemos apoiar o crescimento da
+            sua empresa.
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-center flex-shrink-0"
+            >
+              <i data-lucide="map-pin" class="text-white w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900 mb-1">Endereço</p>
+              <p class="text-slate-600">Rua Cláudio Rodrigues Meira, 65, Montes Claros, MG</p>
+              <p class="text-slate-600">39402-330, Brasil</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-center flex-shrink-0"
+            >
+              <i data-lucide="phone" class="text-white w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900 mb-1">Telefone</p>
+              <p class="text-slate-600">(38) 3221-0070</p>
+              <p class="text-slate-600">Seg-Sex, 09h às 18h</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 flex items-center justify-center flex-shrink-0"
+            >
+              <i data-lucide="mail" class="text-white w-5 h-5"></i>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900 mb-1">E-mail</p>
+              <p class="text-slate-600">contato@luminacontabilidade.com.br</p>
+              <p class="text-slate-600">Respondemos em até 24 horas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-8 rounded-xl shadow-lg bg-white border border-slate-100">
+        <form method="POST" action="" class="space-y-6">
+          {% csrf_token %}
+          {{ form }}
+          <button
+            type="submit"
+            class="w-full rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white py-6 text-lg font-bold transition-colors"
+          >
+            Enviar Mensagem
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
