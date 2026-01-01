@@ -1,0 +1,68 @@
+<div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl transition-all hover:bg-white/10 mb-5 {% if not msg.is_read %}border-l-4 border-l-amber-500{% endif %}">
+    
+    <div class="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
+        <div class="flex items-center gap-3">
+            <div class="h-12 w-12 rounded-full bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="user" class="h-6 w-6 text-indigo-300"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white">{{ msg.name }}</h3>
+                <div class="flex flex-wrap items-center gap-4 text-sm text-indigo-200 mt-1">
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="mail" class="h-3 w-3"></i>
+                        {{ msg.email }}
+                    </span>
+                    {% if msg.phone %}
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="phone" class="h-3 w-3"></i>
+                        {{ msg.phone }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            {% if not msg.is_read %}
+                <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30">Nova</span>
+            {% endif %} 
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium border border-white/20 text-indigo-200 flex items-center">
+                <i data-lucide="calendar" class="h-3 w-3 mr-1"></i>
+                {{ msg.created_at|date:"d/m/Y H:i" }}
+            </span>
+        </div>
+    </div>
+
+    <div class="bg-white/5 rounded-lg p-4 border border-white/5">
+        <p class="text-indigo-100 whitespace-pre-wrap leading-relaxed">{{ msg.message }}</p>
+    </div>
+
+    <div class="flex justify-end gap-3 mt-4 pt-4 border-t border-white/10">
+        
+        <form action="{% url 'mark_read' msg.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-white/20 text-indigo-200 hover:bg-white/10 hover:text-white transition-colors"
+                    title="{% if msg.is_read %}Marcar como não lida{% else %}Marcar como lida{% endif %}">
+                {% if msg.is_read %}
+                    <i data-lucide="eye-off" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Não Lida</span>
+                {% else %}
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Lida</span>
+                {% endif %}
+            </button>
+        </form>
+
+        <form action="{% url 'delete_message' msg.id %}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta mensagem de {{ msg.name }}?');">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-red-500/30 text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+                    title="Excluir mensagem">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                <span class="hidden sm:inline">Excluir</span>
+            </button>
+        </form>
+    </div>
+
+</div>

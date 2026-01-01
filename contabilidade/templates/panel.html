@@ -1,117 +1,96 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<div class="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 pb-10">
-    <div class="container mx-auto px-4 py-8">
-        
-        <div class="mb-8">
-            <a href="{% url 'landing_page' %}" class="inline-flex items-center mb-4 text-indigo-300 hover:text-indigo-200 transition-colors">
-                <i data-lucide="arrow-left" class="mr-2 h-4 w-4"></i>
-                Voltar ao site
-            </a>
-            <h1 class="text-4xl font-bold text-white mb-2">Painel Administrativo</h1>
-            <p class="text-indigo-200">Gerenciar mensagens de contato recebidas</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-indigo-200 text-sm">Total de Mensagens</p>
-                        <p class="text-3xl font-bold text-white">{{ contact_messages|length }}</p>
-                    </div>
-                    <i data-lucide="mail" class="h-10 w-10 text-indigo-400"></i>
-                </div>
-            </div>
-
-            {% comment %} <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-indigo-200 text-sm">Não Lidas</p>
-                        <p class="text-3xl font-bold text-white">{{ stats.unread }}</p>
-                    </div>
-                    <i data-lucide="eye-off" class="h-10 w-10 text-amber-400"></i>
-                </div>
-            </div>
-
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-indigo-200 text-sm">Lidas</p>
-                        <p class="text-3xl font-bold text-white">{{ stats.read }}</p>
-                    </div>
-                    <i data-lucide="eye" class="h-10 w-10 text-green-400"></i>
-                </div>
-            </div> {% endcomment %}
-        </div> 
-
-        <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
-            <a href="?filter=all" 
-               class="px-4 py-2 rounded-md text-sm font-medium transition-colors border {% if current_filter == 'all' %}bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700{% else %}border-white/20 text-indigo-200 hover:bg-white/5{% endif %}">
-                Todas
-            </a>
-            <a href="?filter=unread" 
-               class="px-4 py-2 rounded-md text-sm font-medium transition-colors border {% if current_filter == 'unread' %}bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700{% else %}border-white/20 text-indigo-200 hover:bg-white/5{% endif %}">
-                Não Lidas
-            </a>
-            <a href="?filter=read" 
-               class="px-4 py-2 rounded-md text-sm font-medium transition-colors border {% if current_filter == 'read' %}bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700{% else %}border-white/20 text-indigo-200 hover:bg-white/5{% endif %}">
-                Lidas
-            </a>
-        </div>
-
-        <div class="space-y-4">
-            {% for msg in contact_messages %}
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl transition-all hover:bg-white/10 {% if not msg.is_read %}border-l-4 border-l-amber-500{% endif %}">
-                
-                <div class="flex flex-col md:flex-row md:items-start justify-between mb-4 gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="h-12 w-12 rounded-full bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="user" class="h-6 w-6 text-indigo-300"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-white">{{ msg.name }}</h3>
-                            <div class="flex flex-wrap items-center gap-4 text-sm text-indigo-200 mt-1">
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="mail" class="h-3 w-3"></i>
-                                    {{ msg.email }}
-                                </span>
-                                {% if msg.phone %}
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="phone" class="h-3 w-3"></i>
-                                    {{ msg.phone }}
-                                </span>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-2">
-                        {% comment %} {% if not msg.is_read %}
-                            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30">Nova</span>
-                        {% endif %} {% endcomment %}
-                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium border border-white/20 text-indigo-200 flex items-center">
-                            <i data-lucide="calendar" class="h-3 w-3 mr-1"></i>
-                            {{ msg.created_at|date:"d/m/Y H:i" }}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="bg-white/5 rounded-lg p-4 border border-white/5">
-                    <p class="text-indigo-100 whitespace-pre-wrap leading-relaxed">{{ msg.message }}</p>
-                </div>
-                
-                </div>
-            {% empty %}
-            <div class="bg-white/5 backdrop-blur-sm border border-white/10 p-12 text-center rounded-xl">
-                <i data-lucide="mail" class="h-16 w-16 text-indigo-400 mx-auto mb-4 opacity-50"></i>
-                <p class="text-indigo-200 text-lg">Nenhuma mensagem encontrada</p>
-                {% if current_filter != 'all' %}
-                    <a href="?filter=all" class="text-indigo-400 hover:text-indigo-300 text-sm mt-2 inline-block">Limpar filtros</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
+{% extends 'base.html' %} {% block content %}
+<div
+  class="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 pb-10"
+>
+  <div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+      <a
+        href="{% url 'landing_page' %}"
+        class="inline-flex items-center mb-4 text-indigo-300 hover:text-indigo-200 transition-colors"
+      >
+        <i data-lucide="arrow-left" class="mr-2 h-4 w-4"></i>
+        Voltar ao site
+      </a>
+      <h1 class="text-4xl font-bold text-white mb-2">Painel Administrativo</h1>
+      <p class="text-indigo-200">Gerenciar mensagens de contato recebidas</p>
     </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div
+        class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-indigo-200 text-sm">Total de Mensagens</p>
+            <p class="text-3xl font-bold text-white">
+              {{ stats.total }}
+            </p>
+          </div>
+          <i data-lucide="mail" class="h-10 w-10 text-indigo-400"></i>
+        </div>
+      </div>
+
+      <div
+        class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-indigo-200 text-sm">Não Lidas</p>
+            <p class="text-3xl font-bold text-white">{{ stats.unread }}</p>
+          </div>
+          <i data-lucide="eye-off" class="h-10 w-10 text-amber-400"></i>
+        </div>
+      </div>
+
+      <div
+        class="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-indigo-200 text-sm">Lidas</p>
+            <p class="text-3xl font-bold text-white">{{ stats.read }}</p>
+          </div>
+          <i data-lucide="eye" class="h-10 w-10 text-green-400"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-2 mb-6 overflow-x-auto pb-2">
+      <a
+        href="?filter=all"
+        class="px-4 py-2 rounded-md text-sm font-medium transition-colors border {% if current_filter == 'all' %}bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700{% else %}border-white/20 text-indigo-200 hover:bg-white/5{% endif %}"
+      >
+        Todas
+      </a>
+      <a
+        href="?filter=unread"
+        class="px-4 py-2 rounded-md text-sm font-medium transition-colors border {% if current_filter == 'unread' %}bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700{% else %}border-white/20 text-indigo-200 hover:bg-white/5{% endif %}"
+      >
+        Não Lidas
+      </a>
+      <a
+        href="?filter=read"
+        class="px-4 py-2 rounded-md text-sm font-medium transition-colors border {% if current_filter == 'read' %}bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700{% else %}border-white/20 text-indigo-200 hover:bg-white/5{% endif %}"
+      >
+        Lidas
+      </a>
+    </div>
+
+    <div class="space-y-4">
+      {% for msg in contact_messages %} 
+        {% include "partials/panel/message_card.html" with msg=msg %} 
+        {% empty %}
+        <div
+            class="bg-white/5 backdrop-blur-sm border border-white/10 p-12 text-center rounded-xl"
+        >
+            <i
+            data-lucide="mail"
+            class="h-16 w-16 text-indigo-400 mx-auto mb-4 opacity-50"
+            ></i>
+            <p class="text-indigo-200 text-lg">Nenhuma mensagem encontrada</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endblock %}
 </div>
-{% endblock %}
