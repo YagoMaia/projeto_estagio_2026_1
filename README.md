@@ -60,7 +60,9 @@ Plataforma para um escritório de contabilidade fictício ("Lumina"), com:
 │   └── urls.py          # rotas do app
 ├── core/                # configurações do projeto
 ├── manage.py
-└── requirements.txt
+├── pyproject.toml       # configuração do Ruff e dependências
+├── requirements.txt
+└── uv.lock              # lockfile do uv
 ```
 
 ---

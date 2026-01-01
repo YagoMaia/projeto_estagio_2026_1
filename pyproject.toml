@@ -1,7 +1,7 @@
 [project]
 name = "projeto-estagio-2026-1"
 version = "0.1.0"
-description = "Add your description here"
+description = "Plataforma de gestão para escritório de contabilidade com painel administrativo."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
